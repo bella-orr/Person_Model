@@ -14,8 +14,8 @@ public class PersonGenerator
     {
         //Declarations
         File workingDirectory = new File(System.getProperty("user.dir"));
-        Path file = Paths.get(workingDirectory.getPath() + "\\src\\PersonTestData.txt");
-        ArrayList<String> people = new ArrayList<>();
+        Path file = Paths.get(workingDirectory.getPath() + "\\src\\PersonTestData.csv");
+        ArrayList<Person> people = new ArrayList<>();
         boolean done = false;
         Scanner in = new Scanner(System.in);
 
@@ -23,8 +23,10 @@ public class PersonGenerator
         String firstName =" ";
         String lastName = " " ;
         String title = " " ;
-        String record = " " ;
+        String csvRec = " " ;
+        Person folk;
         int YOB = 0 ;
+        int a = 0;
 
 
         do
@@ -38,18 +40,23 @@ public class PersonGenerator
             //Goes to SafeInput and checks to make sure birth year is 4 digits long
             YOB = SafeInput.getRangedInt(in, "Enter the year of birth (4 digits long )", 1000, 9999 );
 
-            //formats information user input
-            record = ID + ", " + firstName + ", " + lastName + ", " + title + ", " + YOB ;
+            //creates input to object
+            folk = new Person(ID, firstName, lastName, title, YOB);
+
+            folk.setFirstName(firstName);
 
             //records in array list
-            people.add(record);
+            people.add(folk);
 
+            //Asks user for more information using getYN method
             done = SafeInput.getYNConfirm(in, "Are you done entering information?");
+
 
         }
         while(!done);
 
-        for(String p: people)
+        //Prints out objects
+        for(Person p:people)
         {
             System.out.println(p);
         }
@@ -61,13 +68,20 @@ public class PersonGenerator
             BufferedWriter writer =
                     new BufferedWriter(new OutputStreamWriter(out));
 
-            for(String rec : people) //enhanced for loop
+            for(Person rec : people) //enhanced for loop to write CSV file
             {
-                writer.write(rec, 0, rec.length());
+                csvRec = rec.toCSVDataRecord(); //changes person object toCSVData
+                writer.write(csvRec, 0, csvRec.length());
                 writer.newLine();  // adds the new line
 
+                System.out.println(csvRec);
+
             }
+
             writer.close();
+
+
+            System.out.println();
             System.out.println("Data file written!");
         }
         catch (IOException e)
@@ -77,5 +91,14 @@ public class PersonGenerator
 
 
 
+
+
+
+
+
+
+
     }
+
+
 }
