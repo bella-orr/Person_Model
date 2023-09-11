@@ -67,6 +67,7 @@ public class PersonGenerator
                 writer.newLine();  // adds the new line
 
             }
+
             writer.close();
             System.out.println("Data file written!");
         }

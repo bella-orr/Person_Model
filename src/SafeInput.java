@@ -221,7 +221,8 @@ public class SafeInput
     {
         String response = "";
         boolean gotAVal = false;
-        
+
+
         do
         {
             System.out.print("\n" + prompt + ": ");

@@ -64,7 +64,6 @@ public class PersonReader
 
                     }
 
-
                 } else {
                     System.out.println("You must choose a file. Program terminating.");
                     System.exit(0);
