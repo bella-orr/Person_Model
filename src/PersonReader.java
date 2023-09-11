@@ -1,17 +1,16 @@
 //imports
 import java.io.File;
-        import java.io.BufferedInputStream;
-        import java.io.BufferedReader;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.nio.file.Files;
-        import java.nio.file.Path;
-        import java.io.FileNotFoundException;
-        import static java.nio.file.StandardOpenOption.CREATE;
-        import javax.swing.JFileChooser;
-        import java.util.ArrayList;
-        import java.util.Scanner;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.io.FileNotFoundException;
+import static java.nio.file.StandardOpenOption.CREATE;
+import javax.swing.JFileChooser;
+import java.util.Scanner;
 
 
 
@@ -26,7 +25,6 @@ public class PersonReader
         String rec = "";
         Scanner con = new Scanner(System.in);
         boolean start = true;
-        ArrayList<Person> people = new ArrayList<>();
 
         start = SafeInput.getYNConfirm(con, "Would you like to select a file?");
 
@@ -44,40 +42,37 @@ public class PersonReader
 
                     InputStream in = new BufferedInputStream(Files.newInputStream(file, CREATE));
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    System.out.println(String.format("%-8s%-12s%-12s%-5s%6s", "ID#", "Firstname", "Lastname", "Title", "YOB"));
+                    System.out.println(String.format("%-8s%-12s%-12s%-5s%7s", "ID#", "Firstname", "Lastname", "Title", "YOB"));
                     System.out.println("==================================================");
 
                     while (reader.ready())
                     {
                         rec = reader.readLine();
 
+                        String [] details = rec.split(", ");
 
-                        String[] info = rec.split(", ", 5);
-
-                        String ID = info[0];
-                        String firstName = info[1];
-                        String lastName = info[2];
-                        String title = info[3];
-                        String strYOB = info[4];
+                        //assignments of fields
+                        String ID = details[0];
+                        String firstName = details[1];
+                        String lastName = details[2];
+                        String title = details[3];
+                        String strYOB = details[4];
 
                         int YOB = Integer.parseInt(strYOB);
 
-                        System.out.println(String.format("%-8s%-12s%-12s%-5s%7s", ID, firstName, lastName, title, YOB));
+                        System.out.println(String.format("%-8s%-12s%-12s%-5s%8s", ID, firstName, lastName, title, YOB));
 
                     }
 
 
-                } else
-                {
+                } else {
                     System.out.println("You must choose a file. Program terminating.");
                     System.exit(0);
                 }
-            } catch (FileNotFoundException e)
-            {
+            } catch (FileNotFoundException e) {
                 System.out.println("File not found.");
                 e.printStackTrace();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -93,6 +88,5 @@ public class PersonReader
 
 
 }
-
 
 
